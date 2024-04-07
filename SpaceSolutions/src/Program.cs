@@ -20,6 +20,7 @@ if (path == "")
 CsvHandler csvHandler = new CsvHandler();
 String[] files = csvHandler.getCsvFiles(path);
 List<List<DayModel>> csvDataList = new List<List<DayModel>>();
+
 foreach (String file in files)
 {
     List<DayModel> csvData = csvHandler.getCsvData(file);
