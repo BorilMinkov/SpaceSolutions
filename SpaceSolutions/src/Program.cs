@@ -34,10 +34,10 @@ dataHandler dataHandler = new dataHandler();
 foreach (String key in csvDataDict.Keys)
 {
     csvDataDict[key] = dataHandler.checkAndFilter(csvDataDict[key]);
-    Console.WriteLine(key + " left " + csvDataDict[key].Count);
+    //Console.WriteLine(key + " left " + csvDataDict[key].Count);
     dataHandler.calculateScore(csvDataDict[key]);
     csvDataDict[key] = dataHandler.getBest(csvDataDict[key]);
-    Console.WriteLine(key + " left " + csvDataDict[key].Count);
+    //Console.WriteLine(key + " left " + csvDataDict[key].Count);
 }
 
 foreach (String key in csvDataDict.Keys)
