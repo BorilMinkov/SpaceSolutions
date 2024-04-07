@@ -14,13 +14,6 @@ namespace SpaceSolutions.src.csvHandler
 {
     public class CsvHandler
     {
-        /*
-        string folderPath;
-        string senderEmail;
-        string senderPassord;
-        string receiverEmail;
-        */
-
         public string[] getCsvFiles(String folderPath)
         {
             string[] files = Directory.GetFiles(folderPath, "*.csv");
