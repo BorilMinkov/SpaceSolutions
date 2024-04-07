@@ -9,6 +9,7 @@ namespace SpaceSolutions.src.csvHandler
 {
     public class DayModel
     {
+        public int score;
 
         [Name("Day/Parameter")]
         public int Day { get; set; }
@@ -30,5 +31,15 @@ namespace SpaceSolutions.src.csvHandler
 
         [Name("Clouds") ]
         public string Clouds { get; set; }
+
+        public void setScore(int score)
+        {
+            this.score = score;
+        }
+
+        public int getScore()
+        {
+            return this.score;
+        }
     }
 }
