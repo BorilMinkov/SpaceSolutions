@@ -7,10 +7,19 @@ using System.Threading.Tasks;
 
 namespace SpaceSolutions.src.csvHandler
 {
+    /// <summary>
+    /// Class representing a day data entry
+    /// </summary>
     public class DayModel
     {
         public int score;
+        /// <summary>
+        /// integer which assigns how important wind speed increments are
+        /// </summary>
         public int windCoefficient = 1;
+        /// <summary>
+        /// integer which assigns how important humidity increments are
+        /// </summary>
         public int humidityCoefficient = 1;
 
         [Name("Day/Parameter")]
@@ -34,6 +43,11 @@ namespace SpaceSolutions.src.csvHandler
         [Name("Clouds") ]
         public string Clouds { get; set; }
 
+        /// <summary>
+        /// method to calculate how good a day is for launch
+        /// </summary>
+        /// <param name="windSpeed"> integer representing the wind speed in meters per second </param>
+        /// <param name="humidity"> integer representing the humidity in percentage </param>
         public void setScore(int windSpeed, int humidity)
         {
             this.score = windSpeed * windCoefficient + humidity * humidityCoefficient;

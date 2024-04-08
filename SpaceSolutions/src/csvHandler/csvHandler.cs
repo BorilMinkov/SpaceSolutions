@@ -12,14 +12,27 @@ using System.Threading.Tasks;
 
 namespace SpaceSolutions.src.csvHandler
 {
+    /// <summary>
+    /// Class that handles finding, reading and writing csv files.
+    /// </summary>
     public class CsvHandler
     {
+        /// <summary>
+        /// Creates an array of strings, contianing the path to every .csv file in the path folderPath
+        /// </summary>
+        /// <param name="folderPath"> the path to the folder containing the csv files </param>
+        /// <returns>an array containing the paths to the csv files</returns>
         public string[] getCsvFiles(String folderPath)
         {
             string[] files = Directory.GetFiles(folderPath, "*.csv");
             return files;
         }
 
+        /// <summary>
+        /// Creates a list of days from a csv file
+        /// </summary>
+        /// <param name="filePath"> the path to the folder containing the csv files </param>
+        /// <returns> List of dayModels, i.e. a list of days</returns>
         public List<DayModel> getCsvData(String filePath)
         {
             String delimiter = ",";
@@ -28,7 +41,6 @@ namespace SpaceSolutions.src.csvHandler
             {
                 using (CsvReader csvReader = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = delimiter }))
                 {
-                    //do something with csv
                     {
                         IEnumerable<DayModel> dayRecords = csvReader.GetRecords<DayModel>();
                         foreach (DayModel day in dayRecords)
@@ -41,10 +53,16 @@ namespace SpaceSolutions.src.csvHandler
 
             }
         }
-
+        /// <summary>
+        /// creates a csv file,in the given path, containing the best days for every location
+        /// </summary>
+        /// <param name="csvDictionary"> a dictionary composed of keys- the names of the location
+        /// and lists of DayModels mapped to those keys, representing the days for that location</param>
+        /// <param name="path"> the path where the file should be created </param>
+        /// <param name="delimiter"> delimiter for the csv file </param>
         public void createResultsCsv(Dictionary<string, List<DayModel>> csvDictionary, string path, string delimiter)
         {
-            using (TextWriter textWriter = new StreamWriter(path+ "/LaunchAnalysisReport.csv", false, System.Text.Encoding.UTF8))
+            using (TextWriter textWriter = new StreamWriter(path + "/LaunchAnalysisReport.csv", false, System.Text.Encoding.UTF8))
             {
                 using CsvWriter csvWriter = new CsvWriter(textWriter, CultureInfo.InvariantCulture);
                 List<DayResultModel> dayResultModels = new List<DayResultModel>();

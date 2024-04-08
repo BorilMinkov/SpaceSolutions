@@ -9,7 +9,11 @@ namespace SpaceSolutions.src.dataHandler
 {
     internal class dataHandler
     {
-        
+        /// <summary>
+        /// Checks whether the parameters of each day is within the given limits
+        /// </summary>
+        /// <param name="listOfDays"> a list containing day objects </param>
+        /// <returns> the same list as input, however pruned </returns>
         public List<DayModel> checkAndFilter(List<DayModel> listOfDays)
         {
             for (int i = listOfDays.Count - 1; i <= 0; i--)
@@ -23,19 +27,28 @@ namespace SpaceSolutions.src.dataHandler
             }
             return listOfDays;
         }
-        
+        /// <summary>
+        /// Calculates a score per day based on wind speed and humidity
+        /// </summary>
+        /// <param name="listOfDays">  a list containing day objects </param>
+        /// <returns></returns>
         public List<DayModel> calculateScore (List<DayModel> listOfDays)
         {
             foreach (DayModel day in listOfDays)
             {
-                day.setScore( day.Wind, day.Humidity);
+                day.setScore(day.Wind, day.Humidity);
             }
             return listOfDays;
         }
-
+        /// <summary>
+        /// Returns a list of day objects, where only the best days are present
+        /// </summary>
+        /// <param name="listOfDays">  a list containing day objects </param>
+        /// <returns> list of the best days for launch for the given location </returns>
         public List<DayModel> getBest(List<DayModel> listOfDays)
         {
             int best = int.MaxValue;
+            // We do two passes, first pass finds the minimal value, second pass makes sure only days containing it are left
             for (int i = 0; i < 2; i++)
             {
                 for (int j = listOfDays.Count - 1; j >= 0; j--)

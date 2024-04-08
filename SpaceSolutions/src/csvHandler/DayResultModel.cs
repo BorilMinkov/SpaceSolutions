@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SpaceSolutions.src.csvHandler
 {
+    /// <summary>
+    /// Class representing a result day data entry
+    /// </summary>
     internal class DayResultModel
     {
         [Name("Spaceport")]
