@@ -40,10 +40,37 @@ foreach (String key in csvDataDict.Keys)
     //Console.WriteLine(key + " left " + csvDataDict[key].Count);
 }
 
+long bestGeoScore = long.MaxValue;
+string[] bestGeoPair = new string[2];
 foreach (String key in csvDataDict.Keys)
 {
-    foreach (DayModel day in csvDataDict[key])
+    int geoCoefficient = 1;
+    double distanceToEquator = 100;
+    //Use Google Maps Api rather than hard coding
+    if (key.ToLower().Contains("kourou"))
     {
-        Console.WriteLine($"day: {day.Day} {day.Temperature} {day.Wind} {day.Humidity} {day.Precipation} {day.Lightning} {day.Clouds}");
+        distanceToEquator = 5.1597;
+    } else if (key.ToLower().Contains("kodiak"))
+    {
+        distanceToEquator = 57.790001;
+    } else if (key.ToLower().Contains("tanegashima"))
+    {
+        distanceToEquator = 30.4000;
+    } else if (key.ToLower().Contains("mahia"))
+    {
+        distanceToEquator = 39.05;
+    } else if (key.ToLower().Contains("cape canaveral"))
+    {
+        distanceToEquator = 28.396837;
+    }
+
+    long keyGeoScore = (long) (csvDataDict[key].First().getScore() + (geoCoefficient * 111 * distanceToEquator));
+
+    if (keyGeoScore < bestGeoScore )
+    {
+        bestGeoScore = keyGeoScore;
+        bestGeoPair = [key, keyGeoScore.ToString()];
     }
 }
+
+Console.WriteLine(bestGeoPair[0] + " " + bestGeoPair[1]);
