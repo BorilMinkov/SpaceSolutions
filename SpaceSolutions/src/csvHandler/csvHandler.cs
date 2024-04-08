@@ -41,5 +41,22 @@ namespace SpaceSolutions.src.csvHandler
 
             }
         }
+
+        public void createResultsCsv(Dictionary<string, List<DayModel>> csvDictionary, string path, string delimiter)
+        {
+            using (TextWriter textWriter = new StreamWriter(path+ "/LaunchAnalysisReport.csv", false, System.Text.Encoding.UTF8))
+            {
+                using CsvWriter csvWriter = new CsvWriter(textWriter, CultureInfo.InvariantCulture);
+                List<DayResultModel> dayResultModels = new List<DayResultModel>();
+                foreach (string key in csvDictionary.Keys)
+                {
+                    DayResultModel dayResultModel = new DayResultModel();
+                    dayResultModel.Spaceport = key;
+                    dayResultModel.Day = $"{csvDictionary[key].First().Day}.07";
+                    dayResultModels.Add(dayResultModel);
+                }
+                csvWriter.WriteRecords(dayResultModels);
+            }
+        }
     }
 }

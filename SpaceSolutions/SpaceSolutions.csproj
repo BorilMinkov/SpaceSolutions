@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="src\mailHandler\" />
     <Folder Include="test\" />
   </ItemGroup>
 

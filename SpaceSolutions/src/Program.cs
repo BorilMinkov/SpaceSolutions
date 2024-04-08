@@ -24,7 +24,7 @@ Dictionary<string, List<DayModel>> csvDataDict = new Dictionary<string, List<Day
 
 foreach (String file in files)
 {
-    String fileName = Path.GetFileName(file);
+    String fileName = Path.GetFileName(file).Split(".csv")[0];
     List<DayModel> csvData = csvHandler.getCsvData(file);
     csvDataDict.Add(fileName, csvData);
 }
@@ -72,5 +72,6 @@ foreach (String key in csvDataDict.Keys)
         bestGeoPair = [key, keyGeoScore.ToString()];
     }
 }
-
+    
 Console.WriteLine(bestGeoPair[0] + " " + bestGeoPair[1]);
+csvHandler.createResultsCsv(csvDataDict, path, ",");
