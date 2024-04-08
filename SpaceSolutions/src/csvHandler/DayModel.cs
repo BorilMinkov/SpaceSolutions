@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using SpaceSolutions.src.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,13 @@ namespace SpaceSolutions.src.csvHandler
     {
         public int score;
         /// <summary>
-        /// integer which assigns how important wind speed increments are
+        /// integer which assigns how important wind speed increments are. Check Coefficients.cs
         /// </summary>
-        public int windCoefficient = 1;
+        public int windCoefficient = Coefficients.windCoeff;
         /// <summary>
-        /// integer which assigns how important humidity increments are
+        /// integer which assigns how important humidity increments are. Check Coefficients.cs
         /// </summary>
-        public int humidityCoefficient = 1;
+        public int humidityCoefficient = Coefficients.humidityCoeff;
 
         [Name("Day/Parameter")]
         public int Day { get; set; }

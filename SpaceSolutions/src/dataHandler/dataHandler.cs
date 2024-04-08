@@ -18,15 +18,24 @@ namespace SpaceSolutions.src.dataHandler
         {
             for (int i = listOfDays.Count - 1; i <= 0; i--)
             {
-                DayModel day = listOfDays[i];
-                if (day.Lightning.ToLower() == "yes" || day.Precipation > 0 || day.Humidity > 55 || day.Wind > 11 || day.Temperature < 1
-                    || day.Temperature > 32 || day.Clouds.ToLower() == "cumulus" || day.Clouds.ToLower() == "nimbus")
+                try
                 {
-                    listOfDays.Remove(day);
+                    DayModel day = listOfDays[i];
+                    if (day.Lightning.ToLower() == "yes" || day.Precipation > 0 || day.Humidity > 55 || day.Wind > 11 || day.Temperature < 1
+                        || day.Temperature > 32 || day.Clouds.ToLower() == "cumulus" || day.Clouds.ToLower() == "nimbus")
+                    {
+                        listOfDays.Remove(day);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error filtering through csv entries: " + ex.ToString());
+                    continue;
                 }
             }
             return listOfDays;
         }
+
         /// <summary>
         /// Calculates a score per day based on wind speed and humidity
         /// </summary>
@@ -36,10 +45,19 @@ namespace SpaceSolutions.src.dataHandler
         {
             foreach (DayModel day in listOfDays)
             {
-                day.setScore(day.Wind, day.Humidity);
+                try
+                {
+                    day.setScore(day.Wind, day.Humidity);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error calculating score: " + ex.ToString());
+                    continue;
+                }
             }
             return listOfDays;
         }
+
         /// <summary>
         /// Returns a list of day objects, where only the best days are present
         /// </summary>
@@ -54,7 +72,6 @@ namespace SpaceSolutions.src.dataHandler
                 for (int j = listOfDays.Count - 1; j >= 0; j--)
                 {
                     DayModel day = listOfDays[j];
-                    Console.WriteLine(day.Day);
                     if (day.getScore() <= best)
                     {
                         best = day.getScore();
