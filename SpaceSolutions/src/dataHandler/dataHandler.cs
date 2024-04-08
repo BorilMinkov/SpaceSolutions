@@ -12,14 +12,13 @@ namespace SpaceSolutions.src.dataHandler
         
         public List<DayModel> checkAndFilter(List<DayModel> listOfDays)
         {
-            for (int i = 0; i < listOfDays.Count; i++)
+            for (int i = listOfDays.Count - 1; i <= 0; i--)
             {
                 DayModel day = listOfDays[i];
                 if (day.Lightning.ToLower() == "yes" || day.Precipation > 0 || day.Humidity > 55 || day.Wind > 11 || day.Temperature < 1
                     || day.Temperature > 32 || day.Clouds.ToLower() == "cumulus" || day.Clouds.ToLower() == "nimbus")
                 {
                     listOfDays.Remove(day);
-                    i--;
                 }
             }
             return listOfDays;
@@ -39,9 +38,10 @@ namespace SpaceSolutions.src.dataHandler
             int best = int.MaxValue;
             for (int i = 0; i < 2; i++)
             {
-                for (int j = 0; j < listOfDays.Count; j++)
+                for (int j = listOfDays.Count - 1; j >= 0; j--)
                 {
                     DayModel day = listOfDays[j];
+                    Console.WriteLine(day.Day);
                     if (day.getScore() <= best)
                     {
                         best = day.getScore();
@@ -49,7 +49,6 @@ namespace SpaceSolutions.src.dataHandler
                     else
                     {
                         listOfDays.Remove(day);
-                        j--;
                     }
                 }
             }
