@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpaceSolutions.src.dataHandler
 {
-    internal class dataHandler
+    internal class DataHandler
     {
         /// <summary>
         /// Checks whether the parameters of each day is within the given limits
