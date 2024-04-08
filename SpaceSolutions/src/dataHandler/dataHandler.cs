@@ -36,13 +36,13 @@ namespace SpaceSolutions.src.dataHandler
 
         public List<DayModel> getBest(List<DayModel> listOfDays)
         {
-            int best = 0;
+            int best = int.MaxValue;
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < listOfDays.Count; j++)
                 {
                     DayModel day = listOfDays[j];
-                    if (day.getScore() >= best)
+                    if (day.getScore() <= best)
                     {
                         best = day.getScore();
                     }
