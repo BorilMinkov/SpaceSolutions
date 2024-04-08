@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using SpaceSolutions.src.csvHandler;
 using SpaceSolutions.src.dataHandler;
+using SpaceSolutions.src.mailHandler;
 
 Console.WriteLine("Hello, World!");
 
@@ -16,6 +17,23 @@ string path = Console.ReadLine();
 if (path == "")
 {
     path = "C:\\Users\\steel\\Desktop\\WeatherStations";
+}
+
+Console.WriteLine("enter your email");
+string? senderEmail = Console.ReadLine();
+if (senderEmail == "")
+{
+    senderEmail = "BorilBMinkov@outlook.com";
+}
+
+Console.WriteLine("enter email password");
+string? senderPassword = Console.ReadLine();
+
+Console.WriteLine("Enter receiver email");
+string? receiverEmail = Console.ReadLine();
+if (receiverEmail == "")
+{
+    receiverEmail = "BorilBMinkov@outlook.com";
 }
 
 CsvHandler csvHandler = new CsvHandler();
@@ -41,7 +59,7 @@ foreach (String key in csvDataDict.Keys)
 }
 
 long bestGeoScore = long.MaxValue;
-string[] bestGeoPair = new string[2];
+string[] bestGeoPair = new string[3];
 foreach (String key in csvDataDict.Keys)
 {
     int geoCoefficient = 1;
@@ -69,9 +87,12 @@ foreach (String key in csvDataDict.Keys)
     if (keyGeoScore < bestGeoScore )
     {
         bestGeoScore = keyGeoScore;
-        bestGeoPair = [key, keyGeoScore.ToString()];
+        bestGeoPair = [key, keyGeoScore.ToString(), csvDataDict[key].First().Day.ToString()];
     }
 }
     
 Console.WriteLine(bestGeoPair[0] + " " + bestGeoPair[1]);
 csvHandler.createResultsCsv(csvDataDict, path, ",");
+
+MailHandler mailHandler = new MailHandler();
+mailHandler.sendResultEmail(senderEmail, senderPassword, receiverEmail, $"Best location {bestGeoPair[0]} on {bestGeoPair[2]}.07", $"{path}/LaunchAnalysisReport.csv");
